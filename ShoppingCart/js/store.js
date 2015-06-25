@@ -1,7 +1,7 @@
 //----------------------------------------------------------------
 // store (contains the products)
 //
-// NOTE: nutritional info from http://www.cspinet.org/images/fruitcha.jpg
+// NOTE: nutritional info from http://www.cspinet.org/images/fruitcha.jpg - need to search for more accurate/relevant nutritional values
 // score legend:
 // 0: below 5% of daily value (DV)
 // 1: 5-10% DV

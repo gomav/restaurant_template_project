@@ -159,79 +159,79 @@ shoppingCart.prototype.checkout = function (serviceName, clearCart) {
 // check out using PayPal
 // for details see:
 // www.paypal.com/cgi-bin/webscr?cmd=p/pdn/howto_checkout-outside
-shoppingCart.prototype.checkoutPayPal = function (parms, clearCart) {
-
-    // global data
-    var data = {
-        cmd: "_cart",
-        business: parms.merchantID,
-        upload: "1",
-        rm: "2",
-        charset: "utf-8"
-    };
-
-    // item data
-    for (var i = 0; i < this.items.length; i++) {
-        var item = this.items[i];
-        var ctr = i + 1;
-        data["item_number_" + ctr] = item.sku;
-        data["item_name_" + ctr] = item.name;
-        data["quantity_" + ctr] = item.quantity;
-        data["amount_" + ctr] = item.price.toFixed(2);
-    }
-
-    // build form
-    var form = $('<form/></form>');
-    form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
-    form.attr("method", "POST");
-    form.attr("style", "display:none;");
-    this.addFormFields(form, data);
-    this.addFormFields(form, parms.options);
-    $("body").append(form);
-
-    // submit form
-    this.clearCart = clearCart == null || clearCart;
-    form.submit();
-    form.remove();
-}
+// shoppingCart.prototype.checkoutPayPal = function (parms, clearCart) {
+//
+//     // global data
+//     var data = {
+//         cmd: "_cart",
+//         business: parms.merchantID,
+//         upload: "1",
+//         rm: "2",
+//         charset: "utf-8"
+//     };
+//
+//     // item data
+//     for (var i = 0; i < this.items.length; i++) {
+//         var item = this.items[i];
+//         var ctr = i + 1;
+//         data["item_number_" + ctr] = item.sku;
+//         data["item_name_" + ctr] = item.name;
+//         data["quantity_" + ctr] = item.quantity;
+//         data["amount_" + ctr] = item.price.toFixed(2);
+//     }
+//
+//     // build form
+//     var form = $('<form/></form>');
+//     form.attr("action", "https://www.paypal.com/cgi-bin/webscr");
+//     form.attr("method", "POST");
+//     form.attr("style", "display:none;");
+//     this.addFormFields(form, data);
+//     this.addFormFields(form, parms.options);
+//     $("body").append(form);
+//
+//     // submit form
+//     this.clearCart = clearCart == null || clearCart;
+//     form.submit();
+//     form.remove();
+// }
 
 // check out using Google Wallet
 // for details see:
 // developers.google.com/checkout/developer/Google_Checkout_Custom_Cart_How_To_HTML
 // developers.google.com/checkout/developer/interactive_demo
-shoppingCart.prototype.checkoutGoogle = function (parms, clearCart) {
-
-    // global data
-    var data = {};
-
-    // item data
-    for (var i = 0; i < this.items.length; i++) {
-        var item = this.items[i];
-        var ctr = i + 1;
-        data["item_name_" + ctr] = item.sku;
-        data["item_description_" + ctr] = item.name;
-        data["item_price_" + ctr] = item.price.toFixed(2);
-        data["item_quantity_" + ctr] = item.quantity;
-        data["item_merchant_id_" + ctr] = parms.merchantID;
-    }
-
-    // build form
-    var form = $('<form/></form>');
-    // NOTE: in production projects, use the checkout.google url below;
-    // for debugging/testing, use the sandbox.google url instead.
-    //form.attr("action", "https://checkout.google.com/api/checkout/v2/merchantCheckoutForm/Merchant/" + parms.merchantID);
-    form.attr("action", "https://sandbox.google.com/checkout/api/checkout/v2/checkoutForm/Merchant/" + parms.merchantID);
-    form.attr("method", "POST");
-    form.attr("style", "display:none;");
-    this.addFormFields(form, data);
-    this.addFormFields(form, parms.options);
-    $("body").append(form);
-
-    // submit form
-    this.clearCart = clearCart == null || clearCart;
-    form.submit();
-    form.remove();
-}
+// shoppingCart.prototype.checkoutGoogle = function (parms, clearCart) {
+//
+//     // global data
+//     var data = {};
+//
+//     // item data
+//     for (var i = 0; i < this.items.length; i++) {
+//         var item = this.items[i];
+//         var ctr = i + 1;
+//         data["item_name_" + ctr] = item.sku;
+//         data["item_description_" + ctr] = item.name;
+//         data["item_price_" + ctr] = item.price.toFixed(2);
+//         data["item_quantity_" + ctr] = item.quantity;
+//         data["item_merchant_id_" + ctr] = parms.merchantID;
+//     }
+//
+//     // build form
+//     var form = $('<form/></form>');
+//     // NOTE: in production projects, use the checkout.google url below;
+//     // for debugging/testing, use the sandbox.google url instead.
+//     //form.attr("action", "https://checkout.google.com/api/checkout/v2/merchantCheckoutForm/Merchant/" + parms.merchantID);
+//     form.attr("action", "https://sandbox.google.com/checkout/api/checkout/v2/checkoutForm/Merchant/" + parms.merchantID);
+//     form.attr("method", "POST");
+//     form.attr("style", "display:none;");
+//     this.addFormFields(form, data);
+//     this.addFormFields(form, parms.options);
+//     $("body").append(form);
+//
+//     // submit form
+//     this.clearCart = clearCart == null || clearCart;
+//     form.submit();
+//     form.remove();
+// }
 
 // check out using Stripe
 // for details see:
@@ -320,7 +320,7 @@ shoppingCart.prototype.toNumber = function (value) {
 }
 
 //----------------------------------------------------------------
-// checkout parameters (one per supported payment service)
+// checkout parameters (one per supported payment service) - need to reconfigure
 //
 function checkoutParameters(serviceName, merchantID, options) {
     this.serviceName = serviceName;
@@ -329,7 +329,7 @@ function checkoutParameters(serviceName, merchantID, options) {
 }
 
 //----------------------------------------------------------------
-// items in the cart
+// items in the cart - neeed to reconfigure
 //
 function cartItem(sku, name, price, quantity) {
     this.sku = sku;
